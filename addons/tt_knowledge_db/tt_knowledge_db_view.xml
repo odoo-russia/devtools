@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="tt_view_wiki_form_with_tags" model="ir.ui.view">
+            <field name="name">document.page.form</field>
+            <field name="model">document.page</field>
+            <field name="inherit_id" ref="document_page.view_wiki_form"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="attributes">
+                    <attribute name="context">{'default_type': 'category'}</attribute>
+                </field>
+                <field name="parent_id" position="after">
+                    <field name="tag_ids" widget="many2many_tags" attrs="{'invisible': [('type', '=', 'category')]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="tt_view_wiki_filter_with_tags" model="ir.ui.view">
+            <field name="name">document.page.search</field>
+            <field name="model">document.page</field>
+            <field name="inherit_id" ref="document_page.view_wiki_filter"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="tag_ids" string="Tag"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="tt_view_wiki_tag_tree" model="ir.ui.view">
+            <field name="name">document.page.tag.tree</field>
+            <field name="model">document.page.tag</field>
+            <field name="arch" type="xml">
+                <tree string="Tags" version="7.0">
+                    <field name="name"/>
+                    <field name="popularity"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tt_view_wiki_tag_form" model="ir.ui.view">
+            <field name="name">document.page.tag.form</field>
+            <field name="model">document.page.tag</field>
+            <field name="arch" type="xml">
+                <form string="Tags" version="7.0">
+                    <group>
+                        <field name="name"/>
+                        <field name="page_ids"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_tags" model="ir.actions.act_window">
+            <field name="name">Tags</field>
+            <field name="res_model">document.page.tag</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="tt_view_wiki_tag_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a new tag.
+              </p>
+            </field>
+        </record>
+        <menuitem id="menu_tags" parent="document_page.menu_wiki" name="Tags" action="action_tags" sequence="10"/>
+    </data>
+</openerp>

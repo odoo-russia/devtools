@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+document_page_tag_all,document.page.tag,model_document_page_tag,,1,0,0,0
+document_page_tag,document.page.tag,model_document_page_tag,base.group_user,1,1,1,1
